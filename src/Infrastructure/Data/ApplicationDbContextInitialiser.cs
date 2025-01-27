@@ -42,11 +42,36 @@ public class ApplicationDbContextInitialiser
     {
         try
         {
+            _logger.LogInformation("開始初始化數據庫");
+
+            // 檢查數據庫類型
+            if (_context.Database.IsSqlServer())
+            {
+                _logger.LogInformation("使用SQL Server數據庫");
+            }
+            else if (_context.Database.IsNpgsql())
+            {
+                _logger.LogInformation("使用PostgreSQL數據庫");
+            }
+            else if (_context.Database.IsSqlite())
+            {
+                _logger.LogInformation("使用SQLite數據庫");
+            }
+            else
+            {
+                _logger.LogWarning("未能確定數據庫類型");
+            }
+
+            // 輸出連接字符串信息（注意不要記錄完整的連接字符串，因為包含敏感信息）
+            var connection = _context.Database.GetConnectionString();
+            _logger.LogInformation("數據庫連接信息: {Provider}",
+                connection != null ? connection.Split(';')[0] : "未配置連接字符串");
+
             await _context.Database.MigrateAsync();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while initialising the database.");
+            _logger.LogError(ex, "初始化數據庫時發生錯誤: {Message}", ex.Message);
             throw;
         }
     }
@@ -82,7 +107,7 @@ public class ApplicationDbContextInitialiser
             await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 

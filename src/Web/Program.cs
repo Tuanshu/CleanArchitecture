@@ -16,6 +16,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.Logger.LogInformation("運行在開發環境中");
+    app.Logger.LogInformation("數據庫連接字符串: {connectionString}",
+        builder.Configuration.GetConnectionString("CleanArchitectureDb") ?? "未找到");
+
     await app.InitialiseDatabaseAsync();
 }
 else

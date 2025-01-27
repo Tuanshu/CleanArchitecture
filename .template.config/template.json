@@ -6,7 +6,8 @@
     "Web",
     "SPA",
     "ASP.NET",
-    "Clean Architecture"],
+    "Clean Architecture"
+  ],
   "name": "Clean Architecture Solution",
   "description": "A Clean Architecture Solution Template for creating a Single-Page Application (SPA) with ASP.NET Core.",
   "identity": "Clean.Architecture.Solution.CSharp",
@@ -90,7 +91,7 @@
           "description": "SQL Server"
         }
       ],
-      "defaultValue": "sqlserver",
+      "defaultValue": "postgresql",
       "description": "The database type to use."
     },
     "PipelineProvider": {
@@ -230,7 +231,7 @@
             "tests/Application.FunctionalTests/appsettings.PostgreSQL.json"
           ],
           "rename": {
-            "src/Infrastructure/Data/PostgreSQL/" : "src/Infrastructure/Data/Migrations/",
+            "src/Infrastructure/Data/PostgreSQL/": "src/Infrastructure/Data/Migrations/",
             "src/Web/appsettings.PostgreSQL.json": "src/Web/appsettings.Development.json",
             "tests/Application.FunctionalTests/appsettings.PostgreSQL.json": "tests/Application.FunctionalTests/appsettings.json"
           }
@@ -256,7 +257,7 @@
             "tests/Application.FunctionalTests/appsettings.json"
           ],
           "rename": {
-            "src/Infrastructure/Data/SQLite/" : "src/Infrastructure/Data/Migrations/",
+            "src/Infrastructure/Data/SQLite/": "src/Infrastructure/Data/Migrations/",
             "src/Web/appsettings.SQLite.json": "src/Web/appsettings.Development.json"
           }
         },
